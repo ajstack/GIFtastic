@@ -23,34 +23,37 @@ var topics = [
 ]
 
 function createButtons() {
+
+    $("#characterButtons").empty();
     for (var i = 0; i < topics.length; i++) { 
         var buttons = $("<button>"+ topics[i] + "</button>") 
+        
+        buttons.addClass("btn btn-info btn-sm"); 
+        buttons.attr("data-topic", topics[i]); 
         buttons.appendTo("#characterButtons");
-        $("button").addClass("btn btn-info btn-sm data-topic"); 
-        $("button").attr("data-topic", "batman"); //figure out how to define this as i 
     } 
 }
 
-createButtons();
+
 
 
 
 $("button").on("click", function(){
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
     var character = $(this).attr("data-topic"); 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey; + "&limit=1"; //WHY DOESN'T MY LIMIT WORK
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=1"; 
 
     $.ajax({
         url: queryURL,
         method: "GET"
       })
 
-    .then(function(response){ //PUT IN A LOOP MORON
+    .then(function(response){ 
         console.log(response);
         var results = response.data;
 
         for (var j = 0; j < results.length; j++) {
-            var imageURL = results.embed_url;
+            var imageURL = results.images.downsized_still;
             var characterImage = $("<img>");
 
             characterImage.attr("src", imageURL);
@@ -62,12 +65,21 @@ $("button").on("click", function(){
 
 });
     
+$("#addCharacter").on("click", function(event) {
+    event.preventDefault();
+    // This line grabs the input from the textbox
+    var topic = $("#characterInput").val().trim();
 
+    // Adding movie from the textbox to our array
+    topics.push(topic);
 
-//data-topic points to data-topic, not a character of any sort
+    // Calling renderButtons which handles the processing of our movie array
+    createButtons();
+  });
+
+createButtons();
 //link to correct place in array
 //the promise needs a loop
 //write and place the add to array function in appropriate click handler
-//will adding to the array automatically add to the button list or do I have to find a way to call it again without repeating buttons?
+//add new buttons without repeats
 //click handler for the pause functionality
-//aaaaaaaaand now it won't display the right number of gifs. awesome.
