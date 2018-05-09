@@ -24,19 +24,42 @@ var topics = [
 
 function createButtons() {
 
+    //clear existing buttons to prevent repeats
     $("#characterButtons").empty();
+
+    // creating new buttons
     for (var i = 0; i < topics.length; i++) { 
         var buttons = $("<button>"+ topics[i] + "</button>") 
         
-        buttons.addClass("btn btn-info btn-sm"); 
+        //adding classes to buttons
+        buttons.addClass("btn btn-info btn-sm topicButton"); 
         buttons.attr("data-topic", topics[i]); 
+
+        //appending buttons
         buttons.appendTo("#characterButtons");
     } 
 }
+//calling function
+createButtons();
 
+function toggleSubmitButton(){ 
 
+    //setting assumption that the input does not have characters
+    $("#addCharacter").attr("disabled", true);
+    $("#characterInput").keyup(function(){
+        //if characterInput isn't empty
+        if($(this).val().length != 0){
+            //allow submit button
+            $("#addCharacter").attr("disabled", false);
+        }else{
+            //otherwise leave it disabled
+            $("#addCharacter").attr("disabled", true);
+        }
+    })
+}
 
-
+//calling function
+toggleSubmitButton();
 
 $("button").on("click", function(){
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
@@ -53,7 +76,7 @@ $("button").on("click", function(){
         var results = response.data;
 
         for (var j = 0; j < results.length; j++) {
-            var imageURL = results.images.downsized_still;
+            var imageURL = results.images;//.downsized_still;
             var characterImage = $("<img>");
 
             characterImage.attr("src", imageURL);
@@ -66,20 +89,17 @@ $("button").on("click", function(){
 });
     
 $("#addCharacter").on("click", function(event) {
+
     event.preventDefault();
-    // This line grabs the input from the textbox
     var topic = $("#characterInput").val().trim();
+    topics.push(topic);   
 
-    // Adding movie from the textbox to our array
-    topics.push(topic);
-
-    // Calling renderButtons which handles the processing of our movie array
-    createButtons();
+    
   });
 
-createButtons();
-//link to correct place in array
-//the promise needs a loop
-//write and place the add to array function in appropriate click handler
-//add new buttons without repeats
-//click handler for the pause functionality
+
+
+//figure out how to get to the correct URL
+//click handler for the pause/play functionality
+//figure out why toggleSubmitButton won't play nice with the click handler
+//finish commenting rest of code
