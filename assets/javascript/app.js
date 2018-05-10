@@ -61,24 +61,43 @@ function toggleSubmitButton(){
 //calling function
 toggleSubmitButton();
 
+//click handler to push topics to array
+$("#addCharacter").on("click", function(event) {
+
+    event.preventDefault();
+    var topic = $("#characterInput").val().trim();
+    topics.push(topic);
+    //calling function to create new buttons   
+    createButtons();
+    
+  });
+
+//click function
 $("button").on("click", function(){
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
+    //accessing the correct character from attribute
     var character = $(this).attr("data-topic"); 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=1"; 
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=10"; 
 
+    //ajax call
     $.ajax({
         url: queryURL,
         method: "GET"
       })
 
+
+    //promise
     .then(function(response){ 
         console.log(response);
         var results = response.data;
 
+        //accessing the correct gifs
         for (var j = 0; j < results.length; j++) {
-            var imageURL = results.images;//.downsized_still;
+            var imageURL = results[j].images.downsized_still.url;
+            console.log(imageURL);
             var characterImage = $("<img>");
 
+            //setting attributes to dispaly gif
             characterImage.attr("src", imageURL);
             characterImage.attr("alt", "character image");
 
@@ -87,19 +106,11 @@ $("button").on("click", function(){
     });
 
 });
-    
-$("#addCharacter").on("click", function(event) {
-
-    event.preventDefault();
-    var topic = $("#characterInput").val().trim();
-    topics.push(topic);   
-
-    
-  });
 
 
 
-//figure out how to get to the correct URL
+
+
+//figure out WHY NEW BUTTONS WON'T WORK
 //click handler for the pause/play functionality
-//figure out why toggleSubmitButton won't play nice with the click handler
 //finish commenting rest of code
