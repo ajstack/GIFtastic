@@ -68,7 +68,7 @@ $("button").on("click", function(){
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
     //accessing the correct character from attribute
     var character = $(this).attr("data-topic"); 
-    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=1"; 
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=10"; 
 
     //ajax call
     $.ajax({
@@ -99,9 +99,9 @@ $("button").on("click", function(){
             characterImage.attr("data-state", "still");
             characterImage.addClass("gif");
             
-
-            $("#characters").prepend(characterImage);
             $("#characters").prepend(p);
+            $("#characters").prepend(characterImage);
+            
         }
     });
 
