@@ -6,8 +6,7 @@ var topics = [
     "Stephanie Brown", 
     "Cassandra Cain", 
     "Damian Al Ghul", 
-    "Barbara Gordon",
-    "Kate Kane", 
+    "Barbara Gordon", 
     "Batman",
     "Robin",
     "Nightwing",
@@ -15,9 +14,7 @@ var topics = [
     "Red Robin",
     "Batgirl",
     "Batwoman",
-    "Oracle",
     "Joker",
-    "Penguin",
     "Mr. Freeze",
     "Riddler",
 ]
@@ -32,7 +29,7 @@ function createButtons() {
         var buttons = $("<button>"+ topics[i] + "</button>") 
         
         //adding classes to buttons
-        buttons.addClass("btn btn-info btn-sm topicButton"); 
+        buttons.addClass("btn btn-warning btn-sm topicButton"); 
         buttons.attr("data-topic", topics[i]); 
 
         //appending buttons
@@ -61,9 +58,13 @@ function toggleSubmitButton(){
 //calling function
 toggleSubmitButton();
 
+function findGifs() {
 
-//click function
+}
+
+//click function to get gifs
 $("button").on("click", function(){
+
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
     //accessing the correct character from attribute
     var character = $(this).attr("data-topic"); 
@@ -85,26 +86,29 @@ $("button").on("click", function(){
         for (var j = 0; j < results.length; j++) {
             var imageURL = results[j].images.downsized_still.url;
             var imageURLAnimate = results[j].images.downsized_large.url;
-            console.log(imageURL);
+            //console.log(imageURL);
             var characterImage = $("<img>");
-
+            //console.log(results[j].rating)
+            var p = $("<p>").text("Rating: " + results[j].rating);
             //setting attributes to dispaly gif
             characterImage.attr("src", imageURL);
             characterImage.attr("alt", "character image");
             characterImage.attr("data-still", imageURL);
             characterImage.attr("data-animate", imageURLAnimate);
-            console.log(imageURLAnimate);
+            //console.log(imageURLAnimate);
             characterImage.attr("data-state", "still");
             characterImage.addClass("gif");
+            
 
             $("#characters").prepend(characterImage);
+            $("#characters").prepend(p);
         }
     });
 
 });
 
 //click handler to push topics to array
-$("#addCharacter").on("click", function(event) {
+$(document).on("click", "#addCharacter", function(event) {
 
     event.preventDefault();
     var topic = $("#characterInput").val().trim();
@@ -113,9 +117,11 @@ $("#addCharacter").on("click", function(event) {
     createButtons();
     
   });
-
-$(".gif").on("click", function(){ //{not working}
+  
+//click handler to play/pause
+$(document).on("click", "img.gif", function() { //{not working, it's not reacting to being clicked on at all...}
     var state = $(this).attr("data-state");
+    //console.log(this);
 
     if(state === "still") {
         $(this).attr("src", $(this).attr("data-animate"));
@@ -129,4 +135,5 @@ $(".gif").on("click", function(){ //{not working}
 
 //figure out WHY NOTHING WORKS AFTER I ADD A NEW BUTTON
 //click handler for the pause/play functionality {not working}
+//add ratings {not working}
 //finish commenting rest of code
