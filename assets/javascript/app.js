@@ -31,7 +31,7 @@ function createButtons() {
         //adding classes to buttons
         buttons.addClass("btn btn-warning btn-sm topicButton"); 
         buttons.attr("data-topic", topics[i]); 
-
+        console.log(buttons[0]);
         //appending buttons
         buttons.appendTo("#characterButtons");
     } 
@@ -63,11 +63,12 @@ function findGifs() {
 }
 
 //click function to get gifs
-$("button").on("click", function(){
-
+$("#characterButtons").on("click", ".topicButton", function(){
+    console.log("click button");
     var apiKey = "7nmB5rC887rydxETvwZs3l1ZDEJfK6eG";
     //accessing the correct character from attribute
     var character = $(this).attr("data-topic"); 
+    console.log(character);
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + character + "&api_key=" + apiKey + "&limit=10"; 
 
     //ajax call
