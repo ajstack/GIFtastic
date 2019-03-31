@@ -4,7 +4,7 @@ This project displays gifs based on a topic chosen by the user. To start click o
 
 ![Alt Text](https://github.com/ajstack/GIFtastic/blob/master/assets/gifs/gifTASTIC.gif)
 
-## This App utilizes
+## This app utilizes
 
 * HTML
 * CSS
