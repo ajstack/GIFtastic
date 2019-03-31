@@ -4,14 +4,14 @@ This project displays gifs based on a topic chosen by the user. To start click o
 
 ![Alt Text](https://github.com/ajstack/GIFtastic/blob/master/assets/gifs/gifTASTIC.gif)
 
-## This project is maintained by Alicia Stack
+## This App utilizes
 
-This App utilizes
+* HTML
+* CSS
+* Javascript
+* Twitter Bootstrap
+* giphy API
 
-HTML
-CSS
-Javascript
-Twitter Bootstrap
-giphy API
+This project is maintained by Alicia Stack
 
 https://ajstack.github.io/GIFtastic/
